@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gav</title>
+<style>
+:root{--bg:#141618;--panel:#1f2225;--line:#2d3135;--ink:#f3f0e8;--dim:#9aa0a5;--hi:#ffd400;}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,system-ui,sans-serif;overflow:hidden}
+#stage{position:fixed;inset:0}
+#stage canvas{display:block;width:100%;height:100%}
+#ui{position:fixed;left:0;right:0;bottom:0;padding:16px;display:flex;flex-direction:column;gap:12px;pointer-events:none;
+  background:linear-gradient(to top,rgba(20,22,24,.96) 60%,rgba(20,22,24,0))}
+#ui>*{pointer-events:auto}
+h1{margin:0;font-size:1.7rem;letter-spacing:-.02em}
+#status{color:var(--dim);font-size:1rem;min-height:1.3em}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+button{font:inherit;border:0;border-radius:12px;cursor:pointer}
+.go{flex:1 1 220px;padding:18px 20px;font-size:1.15rem;font-weight:700;background:var(--hi);color:#141618}
+.go.alt{background:var(--ink)}
+.go:disabled{opacity:.3;cursor:not-allowed}
+#anims{display:flex;flex-wrap:wrap;gap:8px;max-height:24vh;overflow-y:auto}
+#anims button,.act{padding:10px 14px;background:var(--panel);color:var(--ink);border:2px solid var(--line);font-size:.95rem}
+#anims button.on{border-color:var(--hi)}
+.act:hover,#anims button:hover{border-color:var(--hi)}
+details{color:var(--dim);font-size:.95rem;line-height:1.55;background:var(--panel);border-radius:12px;padding:10px 14px;border:1px solid var(--line)}
+summary{cursor:pointer;color:var(--ink)}
+b{color:var(--ink)}
+#loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--dim);background:var(--bg);z-index:5}
+</style>
+<script type="importmap">
+{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/addons/"}}
+</script>
+</head>
+<body>
+<div id="stage"></div>
+<div id="loading">Getting Gav ready…</div>
+<div id="ui">
+  <h1>Gav</h1>
+  <div id="status"></div>
+  <div class="row">
+    <button class="go" id="btnAR" disabled>Passthrough — in your room</button>
+    <button class="go alt" id="btnVR" disabled>VR</button>
+  </div>
+  <div id="anims"></div>
+  <div class="row">
+    <button class="act" data-cmd="prev">◀ Previous</button>
+    <button class="act" data-cmd="next">Next ▶</button>
+    <button class="act" data-cmd="turn">Turn him</button>
+    <button class="act" data-cmd="spot" id="spotBtn">On the spot: on</button>
+    <button class="act" data-cmd="speed" id="speedBtn">Speed: 1×</button>
+  </div>
+  <details>
+    <summary>How do I use it in the headset?</summary>
+    <b>Animation menu</b> floats to your left. Press a button with your fingertip, or point a controller (or pinch) and pull the trigger.<br>
+    <b>Thumbstick</b> left/right = previous/next animation. <b>Grip</b> = hide/show the menu.<br>
+    <b>Point at Gav</b> and pull the trigger (or pinch) = next animation.<br>
+    <b>Bring here</b> puts Gav back in front of you and moves the menu beside you.<br>
+    <b>On the spot</b> stops walking/running moves carrying him across your room — turn it off to let him roam.
+  </details>
+</div>
+<script type="module" src="./gav.js"></script>
+</body>
+</html>
